@@ -19,12 +19,23 @@ class etcd::config(
   validate_string($package_name)
   validate_absolute_path($config_file_path)
 
-  file { $config_file_path:
-    notify  => Service['etcd'],
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => template("${module_name}/etc/etcd/etcd.conf.erb"),
-    require => Package[ $package_name ],
+  if versioncmp($::puppetversion, '3.9.9') < 0 {
+    file { $config_file_path:
+      notify  => Service['etcd'],
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => epp("${module_name}/etc/etcd/etcd.conf.epp"),
+      require => Package[ $package_name ],
+    }
+  } else {
+    file { $config_file_path:
+      notify  => Service['etcd'],
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      content => template("${module_name}/etc/etcd/etcd.conf.erb"),
+      require => Package[ $package_name ],
+    }
   }
 }

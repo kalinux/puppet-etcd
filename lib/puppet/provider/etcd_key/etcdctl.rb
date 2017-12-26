@@ -2,7 +2,7 @@ Puppet::Type.type(:etcd_key).provide(:etcdctl) do
   commands :etcdctl => '/usr/bin/etcdctl'
 
   def arguments
-    args = ['--peers', @resource[:peers]]
+    args = []
     if @resource[:cert_file] && @resource[:key_file]
       args << '--cert-file' << @resource[:cert_file] << '--key-file' << @resource[:key_file]
     end
@@ -28,21 +28,21 @@ Puppet::Type.type(:etcd_key).provide(:etcdctl) do
 
   def create
     args = arguments
-    args << 'set'  << @resource[:name] << @resource[:value]
+    args << 'set' << @resource[:name] << @resource[:value]
     debug "[etcd create]: etcdctl #{args}\n"
     etcdctl(args)
   end
 
   def destroy
     args = arguments
-    args << 'rm'  << @resource[:name]
+    args << 'rm' << @resource[:name]
     debug "[etcd rm]: etcdctl #{args}\n"
     etcdctl(args)
   end
 
   def value
     args = arguments
-    args << 'get'  << @resource[:name]
+    args << 'get' << @resource[:name]
     debug "[etcd get]: etcdctl #{args}\n"
     etcdctl(args).chomp
   end
@@ -50,7 +50,7 @@ Puppet::Type.type(:etcd_key).provide(:etcdctl) do
   def value=(val)
     args = arguments
     debug "[etcd set]: etcdctl #{args}\n"
-    args << 'set'  << @resource[:name] << val
+    args << 'set' << @resource[:name] << val
     etcdctl(args)
   end
 end

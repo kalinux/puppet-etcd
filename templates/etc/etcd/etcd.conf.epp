@@ -1,0 +1,112 @@
+# [member]
+ETCD_NAME="<%= $etcd::etcd_name %>"
+ETCD_DATA_DIR="<%= $etcd::data_dir %>"
+<% unless [nil, :undefined, :undef, ''].include?($etcd::wal_dir) -%>
+ETCD_WAL_DIR="<%= $etcd::wal_dir %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::snapshot_count) -%>
+ETCD_SNAPSHOT_COUNT="<%= $etcd::snapshot_count %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::heartbeat_interval) -%>
+ETCD_HEARTBEAT_INTERVAL="<%= $etcd::heartbeat_interval %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::election_timeout) -%>
+ETCD_ELECTION_TIMEOUT="<%= $etcd::election_timeout %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::listen_peer_urls) -%>
+ETCD_LISTEN_PEER_URLS="<%= Array($etcd::listen_peer_urls).join(',') %>"
+<% end -%>
+ETCD_LISTEN_CLIENT_URLS="<%= Array($etcd::listen_client_urls).join(',') %>"
+<% unless [nil, :undefined, :undef, ''].include?($etcd::max_snapshots) -%>
+ETCD_MAX_SNAPSHOTS="<%= $etcd::max_snapshots %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::max_wals) -%>
+ETCD_MAX_WALS="<%= $etcd::max_wals %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::cors) -%>
+ETCD_CORS="<%= Array($etcd::cors).join(',') %>"
+<% end -%>
+#
+#[cluster]
+<% unless [nil, :undefined, :undef, ''].include?($etcd::initial_advertise_peer_urls) -%>
+ETCD_INITIAL_ADVERTISE_PEER_URLS="<%= Array($etcd::initial_advertise_peer_urls).join(',') %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::initial_cluster) -%>
+# if you use different ETCD_NAME (e.g. test), set ETCD_INITIAL_CLUSTER value for this name, i.e. "test=http://..."
+ETCD_INITIAL_CLUSTER="<%= Array($etcd::initial_cluster).join(',') %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::initial_cluster_state) -%>
+ETCD_INITIAL_CLUSTER_STATE="<%= $etcd::initial_cluster_state %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::initial_cluster_token) -%>
+ETCD_INITIAL_CLUSTER_TOKEN="<%= $etcd::initial_cluster_token %>"
+<% end -%>
+ETCD_ADVERTISE_CLIENT_URLS="<%= Array($etcd::advertise_client_urls).join(',') %>"
+<% unless [nil, :undefined, :undef, ''].include?($etcd::discovery) -%>
+ETCD_DISCOVERY="<%= $etcd::discovery %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::discovery_srv) -%>
+ETCD_DISCOVERY_SRV="<%= $etcd::discovery_srv %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::discovery_fallback) -%>
+ETCD_DISCOVERY_FALLBACK="<%= $etcd::discovery_fallback %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::discovery_proxy) -%>
+ETCD_DISCOVERY_PROXY="<%= $etcd::discovery_proxy %>"
+<% end -%>
+#
+<% unless [nil, :undefined, :undef, ''].include?($etcd::real_proxy) and $etcd::real_proxy != 'off' -%>
+#[proxy]
+<% unless [nil, :undefined, :undef, ''].include?($etcd::real_proxy) -%>
+ETCD_PROXY="<%= $etcd::real_proxy %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::proxy_failure_wait) -%>
+ETCD_PROXY_FAILURE_WAIT="<%= $etcd::proxy_failure_wait %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::proxy_refresh_interval) -%>
+ETCD_PROXY_REFRESH_INTERVAL="<%= $etcd::proxy_refresh_interval %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::proxy_dial_timeout) -%>
+ETCD_PROXY_DIAL_TIMEOUT="<%= $etcd::proxy_dial_timeout %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::proxy_write_timeout) -%>
+ETCD_PROXY_WRITE_TIMEOUT="<%= $etcd::proxy_write_timeout %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::proxy_read_timeout) -%>
+ETCD_PROXY_READ_TIMEOUT="<%= $etcd::proxy_read_timeout %>"
+<% end -%>
+<% end -%>
+#
+#[security]
+<% unless [nil, :undefined, :undef, ''].include?($etcd::cert_file) -%>
+ETCD_CERT_FILE="<%= $etcd::cert_file %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::key_file) -%>
+ETCD_KEY_FILE="<%= $etcd::key_file %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::client_cert_auth) -%>
+ETCD_CLIENT_CERT_AUTH=<%= $etcd::client_cert_auth %>
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::trusted_ca_file) -%>
+ETCD_TRUSTED_CA_FILE="<%= $etcd::trusted_ca_file %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::peer_cert_file) -%>
+ETCD_PEER_CERT_FILE="<%= $etcd::peer_cert_file %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::peer_key_file) -%>
+ETCD_PEER_KEY_FILE="<%= $etcd::peer_key_file %>"
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::peer_client_cert_auth) -%>
+ETCD_PEER_CLIENT_CERT_AUTH=<%= $etcd::peer_client_cert_auth %>
+<% end -%>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::peer_trusted_ca_file) -%>
+ETCD_PEER_TRUSTED_CA_FILE="<%= $etcd::peer_trusted_ca_file %>"
+<% end -%>
+#
+#[logging]
+<% unless [nil, :undefined, :undef, ''].include?($etcd::debug) -%>
+ETCD_DEBUG=<%= $etcd::debug %>
+<% end %>
+<% unless [nil, :undefined, :undef, ''].include?($etcd::log_package_levels) -%>
+ETCD_LOG_PACKAGE_LEVELS="<%= $etcd::log_package_levels %>"
+<% end -%>

@@ -281,12 +281,7 @@ class etcd (
     validate_re($proxy, '^(on|off|readonly)$')
     $real_proxy = $proxy
   } else {
-    $str = join(any2array($initial_cluster), '|')
-    if $::fqdn in $str or $::ipaddress in $str {
-      $real_proxy = 'off'
-    } else {
-      $real_proxy = 'on'
-    }
+    $real_proxy = undef
   }
 
   contain 'etcd::install'

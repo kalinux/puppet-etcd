@@ -1,6 +1,6 @@
 Puppet::Type.newtype(:etcd_key) do
   @doc = <<-EOT
-    doc 
+    doc
   EOT
 
   autorequire(:service) do
@@ -34,10 +34,10 @@ Puppet::Type.newtype(:etcd_key) do
     end
   end
 
-  newparam(:peers) do
-    desc "a comma-delimited list of machine addresses in the cluster"
-    defaultto '127.0.0.1:4001,127.0.0.1:2379'
-  end
+#  newparam(:peers) do
+#    desc "a comma-delimited list of machine addresses in the cluster"
+#    defaultto ''
+#  end
 
   newparam(:cert_file) do
     desc "identify HTTPS client using this SSL certificate file"

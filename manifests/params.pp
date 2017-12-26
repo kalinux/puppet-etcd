@@ -217,14 +217,14 @@ class etcd::params {
   $snapshot_count               = undef
   $heartbeat_interval           = undef
   $election_timeout             = undef
-  $listen_peer_urls             = undef
+  $listen_peer_urls             = ['http://localhost:2380']
   $listen_client_urls           = ['http://localhost:2379']
   $max_snapshots                = undef
   $max_wals                     = undef
   $cors                         = undef
   # cluster options
   $initial_advertise_peer_urls  = undef
-  $initial_cluster              = ["${etcd_name}=http://localhost:2380", "${etcd_name}=http://localhost:7001"]
+  $initial_cluster              = undef                      ### ["${etcd_name}=http://localhost:2380", "${etcd_name}=http://localhost:7001"]
   $initial_cluster_state        = undef
   $initial_cluster_token        = undef
   $advertise_client_urls        = ['http://localhost:2379']
